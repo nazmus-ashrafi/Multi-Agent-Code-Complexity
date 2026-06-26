@@ -183,6 +183,23 @@ ots verify ots-proofs/<commit-hash>.txt.ots
 (Proofs are "pending" for a few hours until a Bitcoin block attests them; run
 `ots upgrade ots-proofs/<commit-hash>.txt.ots` to fetch the completed proof.)
 
+## Citation
+
+If you use this package or build on the study, please cite:
+
+```bibtex
+@misc{ashrafi2026architecture,
+  title         = {How Generation Architecture Shapes Code Complexity in
+                   Multi-Agent LLM Systems: A Paired Study on HumanEval},
+  author        = {Ashrafi, Nazmus},
+  year          = {2026},
+  eprint        = {2606.00308},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SE},
+  url           = {https://arxiv.org/abs/2606.00308}
+}
+```
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
