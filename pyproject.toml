@@ -1,0 +1,33 @@
+[project]
+name = "multiagent-code-complexity"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # ── LLM Providers ──
+    "langchain>=0.3",
+    "langchain-openai>=0.2",
+    "langchain-groq>=0.2",
+    "langchain-anthropic>=0.3",
+    "langchain-huggingface>=0.1",
+    "langchain-community>=0.3",
+    "langchain-core>=0.3",
+    "langgraph>=0.2",
+    "langgraph-checkpoint>=1.0",
+    # ── Dataset & Evaluation ──
+    "datasets>=3.0",
+    "dspy>=2.5",
+    "fire>=0.5",          # CLI for the HumanEval evaluation harness
+    # ── Analysis (your new complexity study) ──
+    "radon>=6.0",
+    # ── Core Utilities ──
+    "tqdm>=4.66",
+    "numpy>=1.26",
+    "python-dotenv>=1.0",
+    "astroid>=4.1.2",
+    "staticfg>=0.9.5",
+    "scipy>=1.17.1",
+    "statsmodels>=0.14.6",
+    "matplotlib>=3.10.9",
+]

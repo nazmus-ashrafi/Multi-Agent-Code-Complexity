@@ -1,0 +1,51 @@
+# Archival timestamping via OpenTimestamps (complements Zenodo snapshots).
+#
+# Stamps the HEAD commit hash on every push. Because a git commit hash covers
+# the full tree and all ancestor commits, each stamp is a compact integrity
+# record for the whole repository history. Proofs (.ots) are committed
+# back into ots-proofs/; verify later with:
+#   ots verify ots-proofs/<hash>.txt.ots
+# (Proofs are "pending" for a few hours until a Bitcoin block attests them;
+# `ots upgrade` fetches the completed proof.)
+
+name: opentimestamps
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ots-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    # Skip the proof-commit itself to avoid an infinite loop
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Stamp HEAD commit hash
+        run: |
+          mkdir -p ots-proofs
+          HASH=$(git rev-parse HEAD)
+          echo "$HASH" > "ots-proofs/${HASH}.txt"
+          uvx --from opentimestamps-client ots stamp "ots-proofs/${HASH}.txt"
+
+      - name: Commit proof back to the repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add ots-proofs
+          git commit -m "ots: stamp $(git rev-parse --short HEAD) [skip ci]"
+          git push origin main

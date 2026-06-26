@@ -1,0 +1,22 @@
+# Secrets
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.python-version
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
+
+# Run-time scratch (regenerated outputs land here; the paper's pinned
+# generations under outputs/gpt4o_generations and outputs/gpt4omini_generations
+# are committed deliberately)
+outputs/output.jsonl
+tracing_log/
